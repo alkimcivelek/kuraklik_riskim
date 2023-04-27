@@ -5,13 +5,13 @@ class CityModel {
   CityModel({required this.cityId, required this.cityName});
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
-    return CityModel(cityId: json["cityid"], cityName: json["cityname"]);
+    return CityModel(cityId: json["cityid"], cityName: json["CityName"]);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'cityid': cityId,
-      'cityname': cityName,
+      'CityName': cityName,
     };
   }
 }

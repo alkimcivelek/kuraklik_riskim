@@ -14,7 +14,7 @@ abstract class _RegisterViewModelBase with Store {
   Future<void> getCities() async {
     dynamic response = await Service.getService(
         ApplicationConstant.API_URL + ApplicationConstant.CITIES_URL);
-    cities =
-        response.data.map((e) => CityModel.fromJson(response.data)).toList();
+    cities = List<CityModel>.from(
+        response['data'].map((x) => CityModel.fromJson(x)));
   }
 }

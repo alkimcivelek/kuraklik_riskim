@@ -23,10 +23,19 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
+/*   final TextEditingController _cityController = TextEditingController();
+ */
   final TextEditingController _ppController = TextEditingController();
-
   final _viewModel = RegisterViewModel();
+
+  String _dropDownValue = "";
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => _viewModel.getCities());
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,8 +69,9 @@ class _RegisterViewState extends State<RegisterView> {
                   false, "E-mail", false, _emailController, null, Icons.email),
               Observer(
                 builder: (_) {
-                  return getFormField(false, "Şehir", false, _cityController,
-                      null, Icons.location_pin);
+                  return getFormField(
+                      false, "Şehir", false, null, null, Icons.location_pin,
+                      isDropDown: true);
                 },
               ),
               getFormField(
@@ -99,8 +109,8 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   Widget getFormField(bool callbackFunc, String label, bool obscureText,
-      TextEditingController controller, double? paddingBottom, IconData icon,
-      {bool? isReadOnly, double? fontSize}) {
+      TextEditingController? controller, double? paddingBottom, IconData icon,
+      {bool? isReadOnly, double? fontSize, bool? isDropDown}) {
     return Column(
       children: [
         Align(
@@ -117,38 +127,57 @@ class _RegisterViewState extends State<RegisterView> {
               left: 24, right: 24, bottom: paddingBottom ?? 10, top: 10),
           child: Container(
               height: MediaQuery.of(context).size.height * 0.05,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0XFFF0EEED)),
-              child: TextFormField(
-                onTap: callbackFunc != false ? _showDialogContent : () {},
-                controller: controller,
-                enableSuggestions: false,
-                textAlignVertical: TextAlignVertical.center,
-                obscureText: obscureText,
-                autocorrect: false,
-                readOnly: isReadOnly ?? false,
-                autofocus: false,
-                style: TextStyle(
-                    decorationThickness: 0,
-                    fontSize: fontSize ?? 13,
-                    decoration: TextDecoration.none,
-                    decorationColor: Colors.transparent),
-                cursorColor: Colors.grey[600],
-                decoration: InputDecoration(
-                    prefixIcon: Icon(icon),
-                    helperStyle:
-                        const TextStyle(decoration: TextDecoration.none),
-                    errorStyle:
-                        const TextStyle(decoration: TextDecoration.none),
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    focusedErrorBorder: InputBorder.none,
-                    border: InputBorder.none,
-                    isCollapsed: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 0)),
-              )),
+              child: isDropDown == true && isDropDown != null
+                  ? DropdownButtonFormField(
+                      isExpanded: true,
+                      menuMaxHeight: MediaQuery.of(context).size.height * 0.2,
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.location_pin)),
+                      items: _viewModel.cities.map((e) {
+                        return DropdownMenuItem(
+                            value: e.cityName, child: Text(e.cityName));
+                      }).toList(),
+                      value: null,
+                      onChanged: (value) {
+                        setState(() {
+                          _dropDownValue = value ?? "";
+                        });
+                      },
+                    )
+                  : TextFormField(
+                      onTap: callbackFunc != false ? _showDialogContent : () {},
+                      controller: controller,
+                      enableSuggestions: false,
+                      textAlignVertical: TextAlignVertical.center,
+                      obscureText: obscureText,
+                      autocorrect: false,
+                      readOnly: isReadOnly ?? false,
+                      autofocus: false,
+                      style: TextStyle(
+                          decorationThickness: 0,
+                          fontSize: fontSize ?? 13,
+                          decoration: TextDecoration.none,
+                          decorationColor: Colors.transparent),
+                      cursorColor: Colors.grey[600],
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(icon),
+                          helperStyle:
+                              const TextStyle(decoration: TextDecoration.none),
+                          errorStyle:
+                              const TextStyle(decoration: TextDecoration.none),
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          focusedErrorBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          isCollapsed: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 0)),
+                    )),
         ),
       ],
     );

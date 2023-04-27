@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kuraklik_riskim/views/home_view.dart';
 import 'package:kuraklik_riskim/views/login_view.dart';
 import 'package:kuraklik_riskim/views/register_view.dart';
 
@@ -12,6 +13,6 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: RegisterView());
+        debugShowCheckedModeBanner: false, home: HomeView());
   }
 }

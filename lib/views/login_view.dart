@@ -122,18 +122,28 @@ class _LoginViewState extends State<LoginView> {
               ),
               InkWell(
                   onTap: () async {
-                    if (await _storageHelper.getValue("token") == null) {
-                      dynamic result = await Service.postService(
-                          {
-                            "email": _emailController.text,
-                            "password": _passwordController.text
-                          },
-                          ApplicationConstant.API_URL +
-                              ApplicationConstant.LOGIN_URL);
-                      debugPrint(result.toString());
-                    } else {
+                    try {
+                      if (await _storageHelper.getValue("token") == null) {
+                        dynamic result = await Service.postService(
+                            {
+                              "email": _emailController.text,
+                              "password": _passwordController.text
+                            },
+                            ApplicationConstant.API_URL +
+                                ApplicationConstant.LOGIN_URL);
+                        debugPrint(result.toString());
+                        if (_rememberMe) {
+                          _storageHelper.setValue(
+                              "token", result["token"].toString());
+                        }
+                      } else {
+                        if (kDebugMode) {
+                          print("Giriş yapmış kullanıcı mevcut.");
+                        }
+                      }
+                    } catch (e) {
                       if (kDebugMode) {
-                        print("Giriş yapmış kullanıcı mevcut.");
+                        print("hata: $e");
                       }
                     }
                   },
