@@ -8,11 +8,27 @@ class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
 abstract class _HomeViewModelBase with Store {
   @observable
   double prediction = 0;
+  double r2_score = 0;
 
   @action
-  Future<void> getPrediction() async {
+  Future<void> getPrediction(String date) async {
     dynamic response = await Service.getService(
-        ApplicationConstant.API_URL + ApplicationConstant.CITIES_URL);
+        ApplicationConstant.API_URL_PREDICT +
+            ApplicationConstant.PREDICT.replaceFirst("parameter", date),
+        null);
+    prediction = double.parse(response['prediction']);
+    r2_score = response['r2'];
+    // cities = List<CityModel>.from(
+    //     response['data'].map((x) => CityModel.fromJson(x)));
+  }
+
+  @action
+  Future<void> getVisualization(String date) async {
+    dynamic response = await Service.getService(
+        ApplicationConstant.API_URL_PREDICT + ApplicationConstant.VISUALIZE,
+        "image/png");
+    prediction = double.parse(response['prediction']);
+    r2_score = response['r2'];
     // cities = List<CityModel>.from(
     //     response['data'].map((x) => CityModel.fromJson(x)));
   }

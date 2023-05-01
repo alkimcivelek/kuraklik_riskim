@@ -29,8 +29,17 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       AsyncAction('_HomeViewModelBase.getPrediction', context: context);
 
   @override
-  Future<void> getPrediction() {
-    return _$getPredictionAsyncAction.run(() => super.getPrediction());
+  Future<void> getPrediction(String date) {
+    return _$getPredictionAsyncAction.run(() => super.getPrediction(date));
+  }
+
+  late final _$getVisualizationAsyncAction =
+      AsyncAction('_HomeViewModelBase.getVisualization', context: context);
+
+  @override
+  Future<void> getVisualization(String date) {
+    return _$getVisualizationAsyncAction
+        .run(() => super.getVisualization(date));
   }
 
   @override
