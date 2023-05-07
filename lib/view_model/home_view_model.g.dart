@@ -13,13 +13,13 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       Atom(name: '_HomeViewModelBase.prediction', context: context);
 
   @override
-  double get prediction {
+  double? get prediction {
     _$predictionAtom.reportRead();
     return super.prediction;
   }
 
   @override
-  set prediction(double value) {
+  set prediction(double? value) {
     _$predictionAtom.reportWrite(value, super.prediction, () {
       super.prediction = value;
     });
@@ -29,7 +29,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       AsyncAction('_HomeViewModelBase.getPrediction', context: context);
 
   @override
-  Future<void> getPrediction(String date) {
+  Future<ResponseModel> getPrediction(String date) {
     return _$getPredictionAsyncAction.run(() => super.getPrediction(date));
   }
 
