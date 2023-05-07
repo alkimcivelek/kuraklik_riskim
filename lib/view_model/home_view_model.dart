@@ -8,8 +8,8 @@ class HomeViewModel = _HomeViewModelBase with _$HomeViewModel;
 
 abstract class _HomeViewModelBase with Store {
   @observable
-  String prediction = "";
-  double r2_score = 0;
+  double? prediction;
+  // double? r2score;
 
   @action
   Future<ResponseModel> getPrediction(String date) async {
@@ -18,12 +18,23 @@ abstract class _HomeViewModelBase with Store {
           ApplicationConstant.API_URL_PREDICT +
               ApplicationConstant.PREDICT.replaceFirst("parameter", date),
           null);
-      prediction = response['prediction'].toString();
-      r2_score = response['r2'];
+      prediction = double.parse(response['predicted_dam_occ_rate'].toString());
+      // r2score = response['r2'];
       return ResponseModel(message: "İşlem başarılı!", status: true);
     } catch (e) {
       return ResponseModel(
-          message: "Lütfen geçerli bir tarih giriniz.", status: true);
+          message: "Lütfen geçerli bir tarih giriniz.", status: false);
     }
+  }
+
+  @action
+  Future<void> getVisualization(String date) async {
+    dynamic response = await Service.getService(
+        ApplicationConstant.API_URL_PREDICT + ApplicationConstant.VISUALIZE,
+        "image/png");
+    prediction = double.parse(response['prediction']);
+    // r2score = response['r2'];
+    // cities = List<CityModel>.from(
+    //     response['data'].map((x) => CityModel.fromJson(x)));
   }
 }

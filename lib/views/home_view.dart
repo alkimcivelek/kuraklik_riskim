@@ -46,72 +46,120 @@ class _HomeViewState extends State<HomeView> {
                       bottomRight: Radius.circular(18)),
                   color: Colors.white,
                   boxShadow: shadowList),
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.05),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.location_pin,
-                          size: 90,
-                          color: ColorConstant.backgroundColor,
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              "İSTANBUL",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                "Toplam Doluluk: %78",
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.location_pin,
+                        size: 90,
+                        color: ColorConstant.backgroundColor,
+                      ),
+                      Column(
+                        children: [
+                          const Text(
+                            "İSTANBUL",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Observer(builder: (_) {
+                              return Text(
+                                _textEditingController.text.isNotEmpty
+                                    ? "${_textEditingController.text} tarihi için\nTahmini Toplam Doluluk: %${(_viewModel.prediction != null ? _viewModel.prediction! : 0).toDouble().toStringAsFixed(2)}"
+                                    : "........ tarihi için\nTahmini Toplam Doluluk: %${(_viewModel.prediction != null ? _viewModel.prediction! : 0).toDouble().toStringAsFixed(2)}",
+                                style: const TextStyle(fontSize: 14),
+                              );
+                            }),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                          height: MediaQuery.of(context).size.height * 0.1,
+                          width: MediaQuery.of(context).size.width * 1,
+                          decoration: const BoxDecoration(
+                              color: ColorConstant.backgroundColor,
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(18),
+                                  bottomLeft: Radius.circular(18))),
+                          child: Center(
+                              child: getFormField(false, "", false,
+                                  _textEditingController, null, Icons.numbers)))
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 0,
+                  ),
+                  _viewModel.prediction != null
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  child: Image.network(
+                                    ApplicationConstant.API_URL_PREDICT +
+                                        ApplicationConstant.VISUALIZE,
+                                    fit: BoxFit.cover,
+                                  )),
+                              // const Positioned(
+                              //   bottom: 0,
+                              //   child: Padding(
+                              //     padding: EdgeInsets.only(left: 8.0),
+                              //     child: Text(
+                              //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
+                              //       maxLines: 4,
+                              //       style: TextStyle(fontSize: 14),
+                              //     ),
+                              //   ),
+                              // )
+                            ],
+                          ),
                         )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            decoration: BoxDecoration(
-                                color: ColorConstant.backgroundColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(18),
-                                    bottomLeft: Radius.circular(18))),
-                            child: Center(
-                              child: DatePickerDialog(
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(2039)),
-                              //     child: DropdownButtonFormField(
-                              //   isExpanded: true,
-                              //   menuMaxHeight:
-                              //       MediaQuery.of(context).size.height * 0.2,
-                              //   decoration: const InputDecoration(
-                              //       border: InputBorder.none,
-                              //       prefixIcon: Icon(Icons.location_pin)),
-                              //   items: [],
-                              //   value: null,
-                              //   onChanged: (value) {
-                              //     setState(() {
-                              //       // _dropDownValue = value ?? "";
-                              //     });
-                              //   },
-                              // )),
-                            ))
-                      ],
-                    )
-                  ],
-                ),
+                      : const SizedBox(),
+                  _viewModel.prediction != null
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.32,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: Stack(
+                            children: [
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  child: Image.network(
+                                    ApplicationConstant.API_URL_PREDICT +
+                                        ApplicationConstant.VISUALIZE2,
+                                    fit: BoxFit.cover,
+                                  )),
+                              // const Positioned(
+                              //   bottom: 0,
+                              //   child: Padding(
+                              //     padding: EdgeInsets.only(left: 8.0),
+                              //     child: Text(
+                              //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
+                              //       maxLines: 4,
+                              //       style: TextStyle(fontSize: 14),
+                              //     ),
+                              //   ),
+                              // )
+                            ],
+                          ),
+                        )
+                      : const SizedBox()
+                ],
               ),
             ),
           )

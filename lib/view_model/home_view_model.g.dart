@@ -13,13 +13,13 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       Atom(name: '_HomeViewModelBase.prediction', context: context);
 
   @override
-  String get prediction {
+  double? get prediction {
     _$predictionAtom.reportRead();
     return super.prediction;
   }
 
   @override
-  set prediction(String value) {
+  set prediction(double? value) {
     _$predictionAtom.reportWrite(value, super.prediction, () {
       super.prediction = value;
     });
