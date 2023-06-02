@@ -5,10 +5,10 @@ class LoginResponseModel {
   LoginResponseModel({required this.userId, required this.message});
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
-    return LoginResponseModel(userId: json["userId"], message: json["message"]);
+    return LoginResponseModel(userId: json["userid"], message: json["token"]);
   }
 
   Map<String, dynamic> toJson() {
-    return {'userId': userId, 'message': message};
+    return {'userid': userId, 'token': message};
   }
 }

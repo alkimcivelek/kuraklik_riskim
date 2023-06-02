@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:kuraklik_riskim/components/app_bar.dart';
 import 'package:kuraklik_riskim/constants/colors.dart';
+import 'package:kuraklik_riskim/view_model/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,6 +11,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  HomeViewModel _viewModel = HomeViewModel();
   @override
   Widget build(BuildContext context) {
     List<BoxShadow> shadowList = [
@@ -73,30 +72,34 @@ class _HomeViewState extends State<HomeView> {
                     Row(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          decoration: BoxDecoration(
-                              color: ColorConstant.backgroundColor,
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(18),
-                                  bottomLeft: Radius.circular(18))),
-                          child: Center(
-                              child: DropdownButtonFormField(
-                            isExpanded: true,
-                            menuMaxHeight:
-                                MediaQuery.of(context).size.height * 0.2,
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(Icons.location_pin)),
-                            items: [],
-                            value: null,
-                            onChanged: (value) {
-                              setState(() {
-                                // _dropDownValue = value ?? "";
-                              });
-                            },
-                          )),
-                        )
+                            height: MediaQuery.of(context).size.height * 0.1,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            decoration: BoxDecoration(
+                                color: ColorConstant.backgroundColor,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(18),
+                                    bottomLeft: Radius.circular(18))),
+                            child: Center(
+                              child: DatePickerDialog(
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime.now(),
+                                  lastDate: DateTime(2039)),
+                              //     child: DropdownButtonFormField(
+                              //   isExpanded: true,
+                              //   menuMaxHeight:
+                              //       MediaQuery.of(context).size.height * 0.2,
+                              //   decoration: const InputDecoration(
+                              //       border: InputBorder.none,
+                              //       prefixIcon: Icon(Icons.location_pin)),
+                              //   items: [],
+                              //   value: null,
+                              //   onChanged: (value) {
+                              //     setState(() {
+                              //       // _dropDownValue = value ?? "";
+                              //     });
+                              //   },
+                              // )),
+                            ))
                       ],
                     )
                   ],
