@@ -21,16 +21,16 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       actions: <Widget>[
         InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) {
-                  return const LoginView();
-                },
-              ));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) {
+              //     return const LoginView();
+              //   },
+              // ));
             },
             child: const Padding(
               padding: EdgeInsets.only(right: 12.0),
               child: Icon(
-                Icons.person,
+                Icons.logout,
                 size: 29,
               ),
             ))

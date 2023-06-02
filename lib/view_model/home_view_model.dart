@@ -1,4 +1,5 @@
 import 'package:kuraklik_riskim/constants/application_constants.dart';
+import 'package:kuraklik_riskim/model/response_model.dart';
 import 'package:kuraklik_riskim/services/services.dart';
 import 'package:mobx/mobx.dart';
 part 'home_view_model.g.dart';

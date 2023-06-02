@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Service {
-  static Future getService(String url) async {
+  static Future getService(String url, String? contentType) async {
     HttpClient httpClient = HttpClient()
       ..badCertificateCallback =
           (X509Certificate cert, String host, int port) => true;
     try {
       HttpClientRequest req = await httpClient.getUrl(Uri.parse(url));
-      req.headers.set('Content-Type', 'application/json');
-      req.headers.set("Accept", "application/json");
+      req.headers.set('Content-Type', contentType ?? 'application/json');
+      req.headers.set("Accept", contentType ?? "application/json");
       HttpClientResponse resp = await req.close();
 
       if (resp.statusCode == 201 || resp.statusCode == 200) {
