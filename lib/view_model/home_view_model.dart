@@ -12,13 +12,18 @@ abstract class _HomeViewModelBase with Store {
   double r2_score = 0;
 
   @action
-  Future<void> getPrediction(String date) async {
-    dynamic response = await Service.getService(
-        ApplicationConstant.API_URL_PREDICT +
-            ApplicationConstant.PREDICT.replaceFirst("parameter", date));
-    prediction = response['prediction'].toString();
-    r2_score = response['r2'];
-    // cities = List<CityModel>.from(
-    //     response['data'].map((x) => CityModel.fromJson(x)));
+  Future<ResponseModel> getPrediction(String date) async {
+    try {
+      dynamic response = await Service.getService(
+          ApplicationConstant.API_URL_PREDICT +
+              ApplicationConstant.PREDICT.replaceFirst("parameter", date),
+          null);
+      prediction = response['prediction'].toString();
+      r2_score = response['r2'];
+      return ResponseModel(message: "İşlem başarılı!", status: true);
+    } catch (e) {
+      return ResponseModel(
+          message: "Lütfen geçerli bir tarih giriniz.", status: true);
+    }
   }
 }

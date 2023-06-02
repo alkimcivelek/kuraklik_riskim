@@ -29,7 +29,7 @@ mixin _$HomeViewModel on _HomeViewModelBase, Store {
       AsyncAction('_HomeViewModelBase.getPrediction', context: context);
 
   @override
-  Future<void> getPrediction(String date) {
+  Future<ResponseModel> getPrediction(String date) {
     return _$getPredictionAsyncAction.run(() => super.getPrediction(date));
   }
 
