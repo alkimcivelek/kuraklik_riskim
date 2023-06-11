@@ -5,7 +5,9 @@ import 'package:flutter/rendering.dart';
 import 'package:kuraklik_riskim/constants/application_constants.dart';
 import 'package:kuraklik_riskim/helpers/storage_helper.dart';
 import 'package:kuraklik_riskim/services/services.dart';
+import 'package:kuraklik_riskim/views/home_view.dart';
 import 'package:kuraklik_riskim/views/register_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/colors.dart';
 
@@ -123,24 +125,28 @@ class _LoginViewState extends State<LoginView> {
               InkWell(
                   onTap: () async {
                     try {
-                      if (await _storageHelper.getValue("token") == null) {
-                        dynamic result = await Service.postService(
-                            {
-                              "email": _emailController.text,
-                              "password": _passwordController.text
-                            },
-                            ApplicationConstant.API_URL +
-                                ApplicationConstant.LOGIN_URL);
-                        debugPrint(result.toString());
-                        if (_rememberMe) {
-                          _storageHelper.setValue(
-                              "token", result["token"].toString());
-                        }
-                      } else {
-                        if (kDebugMode) {
-                          print("Giriş yapmış kullanıcı mevcut.");
-                        }
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      if (prefs.containsKey("token")) {
+                        prefs.remove("token");
                       }
+                      dynamic result = await Service.postService(
+                          {
+                            "email": _emailController.text,
+                            "password": _passwordController.text
+                          },
+                          ApplicationConstant.API_URL +
+                              ApplicationConstant.LOGIN_URL);
+                      debugPrint(result.toString());
+                      if (_rememberMe) {
+                        _storageHelper.setValue(
+                            "token", result["token"].toString());
+                      }
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const HomeView(),
+                          ),
+                          (route) => true);
                     } catch (e) {
                       if (kDebugMode) {
                         print("hata: $e");

@@ -42,66 +42,71 @@ class _RegisterViewState extends State<RegisterView> {
       child: Scaffold(
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 28.0, bottom: 28.0),
-                child: Image.asset("lib/assets/images/logo.png", width: 150),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 4, bottom: 20, left: 24),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Kayıt Ol",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 28.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 28.0, bottom: 28.0),
+                  child: Image.asset("lib/assets/images/logo.png", width: 150),
                 ),
-              ),
-              getFormField(
-                  false, "Ad", false, _nameController, null, Icons.person),
-              getFormField(false, "Soyad", false, _surnameController, null,
-                  Icons.person),
-              getFormField(
-                  false, "E-mail", false, _emailController, null, Icons.email),
-              Observer(
-                builder: (_) {
-                  return getFormField(
-                      false, "Şehir", false, null, null, Icons.location_pin,
-                      isDropDown: true);
-                },
-              ),
-              getFormField(
-                  true, "Fotoğraf", false, _ppController, null, Icons.image,
-                  isReadOnly: true),
-              getFormField(
-                  false, "Şifre", true, _passwordController, 6, Icons.password),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 0, left: 24),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushReplacement(CupertinoPageRoute(
-                          builder: (context) => const LoginView(),
-                        ));
-                      },
-                      child: const Text(
-                        "Zaten kayıt oldunuz mu? Giriş yapın.",
-                        style: TextStyle(
-                            fontSize: 12, decoration: TextDecoration.underline),
-                        textAlign: TextAlign.center,
-                      ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 4, bottom: 20, left: 24),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Kayıt Ol",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ],
-              ),
-              getButton("Kayıt Ol", 0.05, 1, 24, 15)
-            ],
+                ),
+                getFormField(
+                    false, "Ad", false, _nameController, null, Icons.person),
+                getFormField(false, "Soyad", false, _surnameController, null,
+                    Icons.person),
+                getFormField(false, "E-mail", false, _emailController, null,
+                    Icons.email),
+                Observer(
+                  builder: (_) {
+                    return getFormField(
+                        false, "Şehir", false, null, null, Icons.location_pin,
+                        isDropDown: true);
+                  },
+                ),
+                getFormField(
+                    true, "Fotoğraf", false, _ppController, null, Icons.image,
+                    isReadOnly: true),
+                getFormField(false, "Şifre", true, _passwordController, 6,
+                    Icons.password),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 0, left: 24),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacement(CupertinoPageRoute(
+                            builder: (context) => const LoginView(),
+                          ));
+                        },
+                        child: const Text(
+                          "Zaten kayıt oldunuz mu? Giriş yapın.",
+                          style: TextStyle(
+                              fontSize: 12,
+                              decoration: TextDecoration.underline),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                getButton("Kayıt Ol", 0.05, 1, 24, 15)
+              ],
+            ),
           ),
         ),
       ),
@@ -133,6 +138,12 @@ class _RegisterViewState extends State<RegisterView> {
                   color: const Color(0XFFF0EEED)),
               child: isDropDown == true && isDropDown != null
                   ? DropdownButtonFormField(
+                      alignment: Alignment.center,
+                      isDense: false,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.black,
+                      ),
                       isExpanded: true,
                       menuMaxHeight: MediaQuery.of(context).size.height * 0.2,
                       decoration: const InputDecoration(

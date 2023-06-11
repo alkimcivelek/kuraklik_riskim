@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kuraklik_riskim/constants/colors.dart';
 import 'package:kuraklik_riskim/views/login_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final bool isLeading;
@@ -18,14 +19,22 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       titleSpacing: 0,
       backgroundColor: ColorConstant.backgroundColor,
       centerTitle: true,
+      automaticallyImplyLeading: false,
       actions: <Widget>[
         InkWell(
-            onTap: () {
-              // Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (context) {
-              //     return const LoginView();
-              //   },
-              // ));
+            onTap: () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              if (prefs.containsKey("token")) {
+                prefs.remove("token");
+              }
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return const LoginView();
+                  },
+                ),
+                (route) => false,
+              );
             },
             child: const Padding(
               padding: EdgeInsets.only(right: 12.0),
@@ -35,15 +44,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
               ),
             ))
       ],
-      leading: isLeading
-          ? IconButton(
-              icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-              onPressed: () async {
-                FocusManager.instance.primaryFocus?.unfocus();
-                await Future.delayed(const Duration(milliseconds: 50));
-                Navigator.of(widgetContext).pop();
-              })
-          : null,
       title: Column(
         children: [
           Image.asset(
