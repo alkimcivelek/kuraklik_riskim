@@ -3,7 +3,7 @@ import 'package:kuraklik_riskim/constants/colors.dart';
 import 'package:kuraklik_riskim/views/login_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isLeading;
   final BuildContext widgetContext;
 

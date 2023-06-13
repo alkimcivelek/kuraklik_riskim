@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kuraklik_riskim">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="kuraklik_riskim"
         android:name="${applicationName}"

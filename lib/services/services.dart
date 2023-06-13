@@ -11,6 +11,7 @@ class Service {
       HttpClientRequest req = await httpClient.getUrl(Uri.parse(url));
       req.headers.set('Content-Type', contentType ?? 'application/json');
       req.headers.set("Accept", contentType ?? "application/json");
+      req.headers.set("Connection", "keep-alive");
       HttpClientResponse resp = await req.close();
 
       if (resp.statusCode == 201 || resp.statusCode == 200) {

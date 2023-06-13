@@ -99,66 +99,62 @@ class _HomeViewState extends State<HomeView> {
                   const SizedBox(
                     height: 0,
                   ),
-                  _viewModel.prediction != null
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.35,
-                          width: MediaQuery.of(context).size.width * 1,
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.5,
-                                  child: Image.network(
-                                    ApplicationConstant.API_URL_PREDICT +
-                                        ApplicationConstant.VISUALIZE,
-                                    fit: BoxFit.cover,
-                                  )),
-                              // const Positioned(
-                              //   bottom: 0,
-                              //   child: Padding(
-                              //     padding: EdgeInsets.only(left: 8.0),
-                              //     child: Text(
-                              //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
-                              //       maxLines: 4,
-                              //       style: TextStyle(fontSize: 14),
-                              //     ),
-                              //   ),
-                              // )
-                            ],
-                          ),
-                        )
-                      : const SizedBox(),
-                  _viewModel.prediction != null
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.32,
-                          width: MediaQuery.of(context).size.width * 1,
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                  width: MediaQuery.of(context).size.width * 1,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.5,
-                                  child: Image.network(
-                                    ApplicationConstant.API_URL_PREDICT +
-                                        ApplicationConstant.VISUALIZE2,
-                                    fit: BoxFit.cover,
-                                  )),
-                              // const Positioned(
-                              //   bottom: 0,
-                              //   child: Padding(
-                              //     padding: EdgeInsets.only(left: 8.0),
-                              //     child: Text(
-                              //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
-                              //       maxLines: 4,
-                              //       style: TextStyle(fontSize: 14),
-                              //     ),
-                              //   ),
-                              // )
-                            ],
-                          ),
-                        )
-                      : const SizedBox()
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: Image.network(
+                              ApplicationConstant.API_URL_PREDICT +
+                                  ApplicationConstant.VISUALIZE,
+                              headers: const {"Connection": "Keep-Alive"},
+                              fit: BoxFit.cover,
+                            )),
+                        // const Positioned(
+                        //   bottom: 0,
+                        //   child: Padding(
+                        //     padding: EdgeInsets.only(left: 8.0),
+                        //     child: Text(
+                        //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
+                        //       maxLines: 4,
+                        //       style: TextStyle(fontSize: 14),
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.32,
+                    width: MediaQuery.of(context).size.width * 1,
+                    child: Stack(
+                      children: [
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width * 1,
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: Image.network(
+                              ApplicationConstant.API_URL_PREDICT +
+                                  ApplicationConstant.VISUALIZE2,
+                              headers: {"Connection": "Keep-Alive"},
+                              fit: BoxFit.cover,
+                            )),
+                        // const Positioned(
+                        //   bottom: 0,
+                        //   child: Padding(
+                        //     padding: EdgeInsets.only(left: 8.0),
+                        //     child: Text(
+                        //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
+                        //       maxLines: 4,
+                        //       style: TextStyle(fontSize: 14),
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
