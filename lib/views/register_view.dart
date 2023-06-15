@@ -23,12 +23,7 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
-/*   final TextEditingController _cityController = TextEditingController();
- */
-  final TextEditingController _ppController = TextEditingController();
   final _viewModel = RegisterViewModel();
-
-  String _dropDownValue = "";
 
   @override
   void initState() {
@@ -77,9 +72,6 @@ class _RegisterViewState extends State<RegisterView> {
                         isDropDown: true);
                   },
                 ),
-                getFormField(
-                    true, "Fotoğraf", false, _ppController, null, Icons.image,
-                    isReadOnly: true),
                 getFormField(false, "Şifre", true, _passwordController, 6,
                     Icons.password),
                 Row(
@@ -136,59 +128,35 @@ class _RegisterViewState extends State<RegisterView> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0XFFF0EEED)),
-              child: isDropDown == true && isDropDown != null
-                  ? DropdownButtonFormField(
-                      alignment: Alignment.center,
-                      isDense: false,
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.black,
-                      ),
-                      isExpanded: true,
-                      menuMaxHeight: MediaQuery.of(context).size.height * 0.2,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.location_pin)),
-                      items: _viewModel.cities.map((e) {
-                        return DropdownMenuItem(
-                            value: e.cityName, child: Text(e.cityName));
-                      }).toList(),
-                      value: null,
-                      onChanged: (value) {
-                        setState(() {
-                          _dropDownValue = value ?? "";
-                        });
-                      },
-                    )
-                  : TextFormField(
-                      onTap: callbackFunc != false ? _showDialogContent : () {},
-                      controller: controller,
-                      enableSuggestions: false,
-                      textAlignVertical: TextAlignVertical.center,
-                      obscureText: obscureText,
-                      autocorrect: false,
-                      readOnly: isReadOnly ?? false,
-                      autofocus: false,
-                      style: TextStyle(
-                          decorationThickness: 0,
-                          fontSize: fontSize ?? 13,
-                          decoration: TextDecoration.none,
-                          decorationColor: Colors.transparent),
-                      cursorColor: Colors.grey[600],
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(icon),
-                          helperStyle:
-                              const TextStyle(decoration: TextDecoration.none),
-                          errorStyle:
-                              const TextStyle(decoration: TextDecoration.none),
-                          enabledBorder: InputBorder.none,
-                          errorBorder: InputBorder.none,
-                          focusedErrorBorder: InputBorder.none,
-                          border: InputBorder.none,
-                          isCollapsed: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 0)),
-                    )),
+              child: TextFormField(
+                onTap: callbackFunc != false ? _showDialogContent : () {},
+                controller: controller,
+                enableSuggestions: false,
+                textAlignVertical: TextAlignVertical.center,
+                obscureText: obscureText,
+                autocorrect: false,
+                readOnly: isReadOnly ?? false,
+                autofocus: false,
+                style: TextStyle(
+                    decorationThickness: 0,
+                    fontSize: fontSize ?? 13,
+                    decoration: TextDecoration.none,
+                    decorationColor: Colors.transparent),
+                cursorColor: Colors.grey[600],
+                decoration: InputDecoration(
+                    prefixIcon: Icon(icon),
+                    helperStyle:
+                        const TextStyle(decoration: TextDecoration.none),
+                    errorStyle:
+                        const TextStyle(decoration: TextDecoration.none),
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    focusedErrorBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    isCollapsed: true,
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 0)),
+              )),
         ),
       ],
     );
@@ -223,7 +191,6 @@ class _RegisterViewState extends State<RegisterView> {
     if (pickedFile != null) {
       setState(() {
         imageFile = File(pickedFile.path);
-        _ppController.text = "Fotoğraf seçildi.";
       });
     }
   }
@@ -237,7 +204,6 @@ class _RegisterViewState extends State<RegisterView> {
     if (pickedFile != null) {
       setState(() {
         imageFile = File(pickedFile.path);
-        _ppController.text = "Fotoğraf seçildi.";
       });
     }
   }
@@ -245,7 +211,6 @@ class _RegisterViewState extends State<RegisterView> {
   void deletePhoto() {
     setState(() {
       imageFile = null;
-      _ppController.text = "";
     });
   }
 

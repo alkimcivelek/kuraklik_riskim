@@ -113,17 +113,6 @@ class _HomeViewState extends State<HomeView> {
                               headers: const {"Connection": "Keep-Alive"},
                               fit: BoxFit.cover,
                             )),
-                        // const Positioned(
-                        //   bottom: 0,
-                        //   child: Padding(
-                        //     padding: EdgeInsets.only(left: 8.0),
-                        //     child: Text(
-                        //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
-                        //       maxLines: 4,
-                        //       style: TextStyle(fontSize: 14),
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                   ),
@@ -138,20 +127,12 @@ class _HomeViewState extends State<HomeView> {
                             child: Image.network(
                               ApplicationConstant.API_URL_PREDICT +
                                   ApplicationConstant.VISUALIZE2,
-                              headers: {"Connection": "Keep-Alive"},
+                              headers: {
+                                "Connection": "Keep-Alive",
+                                "Keep-Alive": "timeout=20, max=5"
+                              },
                               fit: BoxFit.cover,
                             )),
-                        // const Positioned(
-                        //   bottom: 0,
-                        //   child: Padding(
-                        //     padding: EdgeInsets.only(left: 8.0),
-                        //     child: Text(
-                        //       "Bu test verileri 2018-2021 yıllarını kapsamaktadır.\nGerçek ve tahmin verileri arasındaki fark\ngörselleştirilmiştir.",
-                        //       maxLines: 4,
-                        //       style: TextStyle(fontSize: 14),
-                        //     ),
-                        //   ),
-                        // )
                       ],
                     ),
                   )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kuraklik_riskim/views/home_view.dart';
 import 'package:kuraklik_riskim/views/login_view.dart';
-import 'package:kuraklik_riskim/views/register_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
